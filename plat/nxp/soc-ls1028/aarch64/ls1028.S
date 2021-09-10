@@ -623,6 +623,9 @@ _soc_sys_reset:
     mov  w1, wzr
     bl   _write_reg_reset
 
+    mov x0, #0x2310000
+    str  wzr, [x0, 0]
+
      /* set the reset request */
     mov  x4, #RST_RSTCR_OFFSET
     mov  x0, x4
@@ -654,6 +657,10 @@ _soc_sys_reset:
   * uses x0, x1, x2, x3
   */
 _soc_sys_off:
+    mov x0, #0x2310000
+    mov w1, #0x02000000
+    str  w1, [x0, 0]
+    str  wzr, [x0, 8]
 
      /* disable sec, spi and flexspi
       * TBD - Check if eNETC needs to be disabled
